@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Contact - Bibmath RDC{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <h2 class="fw-bold mb-4 text-center">Contactez-nous</h2>
+        <p class="text-muted text-center mb-5 lead">Une question ? Un problème technique ? Une proposition de cours ? Notre équipe vous répond sous 24h.</p>
+        
+        <div class="row g-5">
+            <div class="col-md-5">
+                <div class="bg-light p-4 rounded-4 shadow-sm h-100">
+                    <h5 class="fw-bold mb-4">Nos coordonnées</h5>
+                    <div class="d-flex mb-4">
+                        <div class="bg-white rounded-circle p-2 shadow-sm text-danger me-3" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0 fw-bold">Adresse</h6>
+                            <p class="text-muted mb-0">Avenue de la Justice, Gombe, Kinshasa, RDC</p>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-4">
+                        <div class="bg-white rounded-circle p-2 shadow-sm text-danger me-3" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0 fw-bold">Téléphone</h6>
+                            <p class="text-muted mb-0">+243 81 234 56 78</p>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-4">
+                        <div class="bg-white rounded-circle p-2 shadow-sm text-danger me-3" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0 fw-bold">Email</h6>
+                            <p class="text-muted mb-0">contact@bibmath.cd</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-5">
+                        <h6 class="fw-bold mb-3">Suivez-nous</h6>
+                        <div class="d-flex gap-2">
+                            <a href="#" class="btn btn-outline-danger btn-sm rounded-circle"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="btn btn-outline-danger btn-sm rounded-circle"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="btn btn-outline-danger btn-sm rounded-circle"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="card border-0 shadow-lg rounded-4 p-4">
+                    <form method="POST">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small">Nom complet</label>
+                            <input type="text" class="form-control" placeholder="Entrez votre nom" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small">Email</label>
+                            <input type="email" class="form-control" placeholder="Entrez votre email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small">Sujet</label>
+                            <select class="form-select">
+                                <option>Question sur un cours</option>
+                                <option>Problème de connexion</option>
+                                <option>Suggestion de contenu</option>
+                                <option>Autre</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label fw-bold small">Message</label>
+                            <textarea class="form-control" rows="5" placeholder="Comment pouvons-nous vous aider ?" required></textarea>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-danger btn-lg rounded-pill fw-bold">Envoyer le message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

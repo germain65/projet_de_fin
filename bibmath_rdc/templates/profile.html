@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Mon Profil - BibMath RDC{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="card-title mb-0">
+                        <i class="fas fa-user-circle me-2"></i>Mon Profil
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 text-center">
+                            <div class="mb-3">
+                                <i class="fas fa-user-circle fa-5x text-secondary"></i>
+                            </div>
+                            <h5>{{ user.username }}</h5>
+                            <span class="badge bg-{{ 'primary' if user.role == 'admin' else 'success' if user.role == 'teacher' else 'info' }}">
+                                {{ 'Administrateur' if user.role == 'admin' else 'Professeur' if user.role == 'teacher' else 'Étudiant' }}
+                            </span>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Nom d'utilisateur</label>
+                                <p class="form-control-plaintext">{{ user.username }}</p>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Adresse email</label>
+                                <p class="form-control-plaintext">{{ user.email }}</p>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Rôle</label>
+                                <p class="form-control-plaintext">
+                                    {{ 'Administrateur' if user.role == 'admin' else 'Professeur' if user.role == 'teacher' else 'Étudiant' }}
+                                </p>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Date d'inscription</label>
+                                <p class="form-control-plaintext">
+                                    {{ user.created_at.strftime('%d/%m/%Y') if user.created_at else 'Non disponible' }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{{ url_for('main.index') }}" class="btn btn-outline-primary">
+                            <i class="fas fa-home me-2"></i>Retour à l'accueil
+                        </a>
+                        <button type="button" class="btn btn-outline-secondary" onclick="window.history.back()">
+                            <i class="fas fa-arrow-left me-2"></i>Retour
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

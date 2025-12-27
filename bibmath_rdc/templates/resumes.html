@@ -1,0 +1,208 @@
+{% extends "base.html" %}
+
+{% block title %}Résumés de Cours - BibMath RDC{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- En-tête principal -->
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold text-primary mb-3">
+            Bibliothèque des Résumés de Cours
+        </h1>
+        <p class="lead text-muted col-lg-8 mx-auto">
+            Des fiches de révision claires, complètes et conformes au programme national congolais.<br>
+            Rédigées avec passion par des professeurs expérimentés pour vous aider à exceller.
+        </p>
+    </div>
+
+    <!-- Barre de recherche + Filtres avancés -->
+    <div class="row mb-5">
+        <div class="col-lg-10 mx-auto">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+                    <form method="GET" action="{{ url_for('main.resumes') }}" class="row g-3 align-items-end">
+                        <!-- Recherche par mot-clé -->
+                        <div class="col-md-5">
+                            <label class="form-label fw-semibold text-muted small">Rechercher un résumé</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-white border-end-0"><i class="fas fa-search text-danger"></i></span>
+                                <input type="text" name="q" class="form-control border-start-0 ps-0" 
+                                       placeholder="Ex: identités remarquables, lois de Newton, intégration..." 
+                                       value="{{ request.args.get('q', '') }}">
+                            </div>
+                        </div>
+
+                        <!-- Filtre par matière -->
+                        <div class="col-md-3">
+                            <label class="form-label fw-semibold text-muted small">Matière</label>
+                            <select name="subject" class="form-select">
+                                <option value="">Toutes les matières</option>
+                                <option value="maths" {% if request.args.get('subject') == 'maths' %}selected{% endif %}>Mathématiques</option>
+                                <option value="physique" {% if request.args.get('subject') == 'physique' %}selected{% endif %}>Physique</option>
+                                <option value="chimie" {% if request.args.get('subject') == 'chimie' %}selected{% endif %}>Chimie</option>
+                            </select>
+                        </div>
+
+                        <!-- Filtre par niveau -->
+                        <div class="col-md-3">
+                            <label class="form-label fw-semibold text-muted small">Niveau</label>
+                            <select name="level" class="form-select">
+                                <option value="">Tous les niveaux</option>
+                                <option value="debutant" {% if request.args.get('level') == 'debutant' %}selected{% endif %}>Débutant</option>
+                                <option value="intermediaire" {% if request.args.get('level') == 'intermediaire' %}selected{% endif %}>Intermédiaire</option>
+                                <option value="avance" {% if request.args.get('level') == 'avance' %}selected{% endif %}>Avancé</option>
+                            </select>
+                        </div>
+
+                        <!-- Bouton filtrer -->
+                        <div class="col-md-1">
+                            <button type="submit" class="btn btn-danger w-100 rounded-pill">
+                                <i class="fas fa-filter"></i>
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Réinitialiser les filtres si au moins un est actif -->
+                    {% if request.args %}
+                    <div class="mt-3 text-end">
+                        <a href="{{ url_for('main.resumes') }}" class="small text-muted text-decoration-none">
+                            <i class="fas fa-sync-alt me-1"></i> Réinitialiser tous les filtres
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Liste des résumés -->
+    <div class="row g-4">
+        {% if resumes %}
+            {% for resume in resumes %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm border-0 resume-card transition-all">
+                    <div class="card-body d-flex flex-column p-4">
+                        <!-- Matière + Date -->
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <span class="badge rounded-pill px-3 py-2 fs-6
+                                {% if resume.subject == 'maths' %}bg-primary
+                                {% elif resume.subject == 'physique' %}bg-info text-dark
+                                {% elif resume.subject == 'chimie' %}bg-success
+                                {% else %}bg-secondary{% endif %}">
+                                {{ resume.subject | capitalize }}
+                            </span>
+                            <small class="text-muted">
+                                <i class="far fa-calendar-alt me-1"></i>
+                                {{ resume.created_at.strftime('%d %b %Y') }}
+                            </small>
+                        </div>
+
+                        <!-- Titre -->
+                        <h5 class="card-title fw-bold mb-3 text-dark lh-1">
+                            {{ resume.title }}
+                        </h5>
+
+                        <!-- Aperçu du contenu -->
+                        <div class="resume-preview mb-4 flex-grow-1">
+                            <div class="bg-light p-3 rounded-3 border-start border-4 border-danger small math-content"
+                                 style="max-height: 180px; overflow: hidden; position: relative;">
+                                {{ resume.content_latex | safe }}
+                                <div class="position-absolute bottom-0 start-0 end-0 text-center"
+                                     style="height: 60px; background: linear-gradient(transparent, #f8f9fa); pointer-events: none;">
+                                    {% if resume.content_latex | length > 500 %}
+                                    <small class="text-danger fw-bold">... (suite dans le résumé complet)</small>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Niveau + Auteur + Bouton -->
+                        <div class="mt-auto">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge 
+                                    {% if resume.level == 'debutant' %}bg-success
+                                    {% elif resume.level == 'intermediaire' %}bg-warning text-dark
+                                    {% elif resume.level == 'avance' %}bg-danger{% endif %}">
+                                    <i class="fas fa-graduation-cap me-1"></i>
+                                    {{ resume.level | capitalize }}
+                                </span>
+                                <small class="text-muted">
+                                    <i class="fas fa-user-edit me-1"></i>
+                                    Par {{ resume.author.username }}
+                                </small>
+                            </div>
+
+                            <a href="{{ url_for('main.resume_detail', resume_id=resume.id) }}"
+                               class="btn btn-outline-danger w-100 rounded-pill fw-semibold transition-all">
+                                <i class="fas fa-book-open me-2"></i> Lire le résumé complet
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <!-- Aucun résultat -->
+            <div class="col-12">
+                <div class="text-center py-5 my-5">
+                    <i class="fas fa-book-reader fa-5x text-muted mb-4 opacity-50"></i>
+                    <h3 class="text-muted mb-3">Aucun résumé trouvé</h3>
+                    <p class="lead text-muted col-lg-6 mx-auto">
+                        Nous n'avons pas encore publié de résumé correspondant à vos critères.<br>
+                        Mais notre bibliothèque grandit chaque semaine grâce à nos professeurs dévoués !
+                    </p>
+                    <a href="{{ url_for('main.resumes') }}" class="btn btn-danger btn-lg mt-4 rounded-pill shadow">
+                        <i class="fas fa-sync-alt me-2"></i> Voir tous les résumés disponibles
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Pagination (à activer quand tu l’auras implémentée dans la vue Flask) -->
+    {% if pagination %}
+    <nav aria-label="Pagination des résumés" class="mt-5">
+        <ul class="pagination justify-content-center">
+            <li class="page-item {% if not pagination.has_prev %}disabled{% endif %}">
+                <a class="page-link" href="{{ url_for('main.resumes', page=pagination.prev_num if pagination.has_prev else 1, **request.args.to_dict()) }}">
+                    Précédent
+                </a>
+            </li>
+            {% for page_num in pagination.iter_pages(left_edge=2, right_edge=2, left_current=2, right_current=3) %}
+                {% if page_num %}
+                    <li class="page-item {% if page_num == pagination.page %}active{% endif %}">
+                        <a class="page-link" href="{{ url_for('main.resumes', page=page_num, **request.args.to_dict()) }}">{{ page_num }}</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                {% endif %}
+            {% endfor %}
+            <li class="page-item {% if not pagination.has_next %}disabled{% endif %}">
+                <a class="page-link" href="{{ url_for('main.resumes', page=pagination.next_num if pagination.has_next else pagination.pages, **request.args.to_dict()) }}">
+                    Suivant
+                </a>
+            </li>
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+
+<!-- Styles spécifiques à la page des résumés -->
+<style>
+    .resume-card {
+        border-radius: 16px;
+        transition: all 0.4s ease;
+    }
+    .resume-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.12) !important;
+    }
+    .math-content {
+        font-size: 0.95rem;
+        line-height: 1.7;
+    }
+    .transition-all {
+        transition: all 0.3s ease;
+    }
+</style>
+{% endblock %}

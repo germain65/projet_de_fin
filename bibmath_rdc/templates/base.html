@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO -->
+    <meta name="description" content="BibMath RDC - Plateforme gratuite de mathématiques, physique et chimie pour les élèves et étudiants de la RDC.">
+    <meta name="keywords" content="bibmath, rdc, mathématiques, physique, chimie, exetat, éducation congo">
+    <meta name="author" content="BibMath RDC">
+
+    <title>{% block title %}BibMath RDC - Apprendre les sciences avec rigueur{% endblock %}</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <!-- Bootstrap 5.3 -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          crossorigin="anonymous">
+
+    <!-- Font Awesome 6 (VERSION STABLE – OK) -->
+    <link rel="stylesheet"
+          href="https://use.fontawesome.com/releases/v6.5.1/css/all.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS custom -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- MathJax -->
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+        };
+    </script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        :root {
+            --primary-color: #e63946;
+            --navbar-bg: rgba(26,26,46,.95);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: #f8f9fa;
+        }
+
+        main { flex: 1; }
+
+        .navbar {
+            background: var(--navbar-bg);
+            backdrop-filter: blur(10px);
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #16213e, #0f1629);
+            color: #adb5bd;
+        }
+
+        .footer a {
+            color: #adb5bd;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: var(--primary-color);
+        }
+
+        /* SOCIAL ICONS */
+        .social-links a {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,.15);
+            border: 1px solid rgba(255,255,255,.25);
+            transition: all .3s ease;
+        }
+
+        .social-links a i {
+            color: #f8f9fa;
+            font-size: 1.4rem;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-color);
+            transform: translateY(-6px) scale(1.1);
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{{ url_for('main.index') }}">
+            <i class="fas fa-calculator text-danger me-2"></i>
+            BIBMATH <span class="text-danger">RDC</span>
+        </a>
+
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="nav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('main.index') }}">Accueil</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('main.resumes') }}">Résumés</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('main.exercises') }}">Exercices</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('main.quizzes') }}">Quizzes</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('main.contact') }}">Contact</a></li>
+            </ul>
+            
+            <ul class="navbar-nav">
+                {% if current_user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user me-1"></i>{{ current_user.username }}
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ url_for('auth.profile') }}"><i class="fas fa-user me-2"></i>Mon Profil</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}"><i class="fas fa-sign-out-alt me-2"></i>Déconnexion</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.login') }}">Connexion</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.register') }}">Inscription</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<main class="container-fluid pt-5 mt-4">
+    {% block content %}{% endblock %}
+</main>
+
+<!-- FOOTER -->
+<footer class="footer mt-auto">
+    <div class="container py-5">
+        <div class="row g-4">
+
+            <div class="col-lg-4">
+                <h4 class="text-danger fw-bold mb-3">
+                    <i class="fas fa-calculator me-2"></i>BIBMATH RDC
+                </h4>
+                <p>
+                    Plateforme éducative gratuite pour les sciences en RDC.
+                </p>
+
+                <div class="social-links d-flex gap-3 mt-4">
+                    <a href="https://www.facebook.com/bibmathrdc" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/bibmathrdc" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.youtube.com/@bibmathrdc" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="https://twitter.com/bibmathrdc" title="Twitter"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://wa.me/243815003040" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://t.me/bibmathrdc" title="Telegram"><i class="fab fa-telegram"></i></a>
+                    <a href="https://www.tiktok.com/@bibmathrdc" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-8 text-center text-lg-end">
+                <p class="small mt-4">
+                    © 2025 <strong>BibMath RDC</strong> — Construit pour l’excellence scientifique en Afrique.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</footer>
+
+<!-- JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

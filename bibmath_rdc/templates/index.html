@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+
+{% block title %}Accueil - BibMath RDC{% endblock %}
+
+{% block content %}
+<!-- Hero Section Principale -->
+<section class="hero-section position-relative overflow-hidden text-white" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 70%, #0f1629 100%); min-height: 90vh; display: flex; align-items: center;">
+    <div class="container position-relative" style="z-index: 2;">
+        <div class="row align-items-center">
+            <div class="col-lg-7 px-5 py-5">
+                <h1 class="display-2 fw-bold mb-4 lh-1">
+                    Réussir ses examens <br>
+                    <span class="text-danger">en RDC,</span><br>
+                    c'est possible.
+                </h1>
+                <p class="lead fs-4 mb-5 opacity-90">
+                    BibMath RDC offre gratuitement des résumés clairs, des exercices corrigés et des outils adaptés au programme national pour tous les élèves et étudiants congolais.
+                </p>
+                <div class="d-flex flex-column flex-sm-row gap-4 mb-5">
+                    <a href="{{ url_for('main.resumes') }}" class="btn btn-danger btn-lg px-5 py-3 shadow-lg rounded-pill fw-bold">
+                        <i class="fas fa-book me-2"></i> Découvrir les résumés
+                    </a>
+                    <a href="{{ url_for('main.exercises') }}" class="btn btn-outline-light btn-lg px-5 py-3 rounded-pill fw-bold">
+                        <i class="fas fa-dumbbell me-2"></i> S'entraîner maintenant
+                    </a>
+                </div>
+                <div class="text-muted small">
+                    <i class="fas fa-check me-2"></i>100% gratuit • Conforme au programme EXETAT • Créé par des profs congolais
+                </div>
+            </div>
+            <div class="col-lg-5 text-center">
+                <img src="https://img.freepik.com/free-vector/gradient-back-school-background-with-sketch_23-2148608551.jpg?w=900" 
+                     alt="Élève congolais étudiant avec passion" 
+                     class="img-fluid rounded-4 shadow-lg" 
+                     style="max-height: 500px; border: 8px solid rgba(255,255,255,0.1);">
+            </div>
+        </div>
+    </div>
+    <!-- Décorations flottantes -->
+    <div class="position-absolute top-0 end-0 translate-middle-y me-5" style="font-size: 15rem; opacity: 0.05; color: #e63946;">π</div>
+    <div class="position-absolute bottom-0 start-0 translate-middle-x mb-5" style="font-size: 12rem; opacity: 0.08; color: #e63946;">∫</div>
+</section>
+
+<!-- Statistiques Impactantes -->
+<section class="py-5 bg-white">
+    <div class="container">
+        <div class="row text-center g-5">
+            <div class="col-md-3">
+                <div class="p-4">
+                    <h2 class="display-4 fw-bold text-danger">800+</h2>
+                    <p class="fs-5 text-muted mb-0">Résumés & fiches de cours</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="p-4">
+                    <h2 class="display-4 fw-bold text-danger">2 500+</h2>
+                    <p class="fs-5 text-muted mb-0">Exercices corrigés en détail</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="p-4">
+                    <h2 class="display-4 fw-bold text-danger">35 000+</h2>
+                    <p class="fs-5 text-muted mb-0">Apprenants actifs en 2025</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="p-4">
+                    <h2 class="display-4 fw-bold text-danger">100%</h2>
+                    <p class="fs-5 text-muted mb-0">Gratuit & sans publicité</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Notre Mission -->
+<section class="py-6 bg-light">
+    <div class="container text-center">
+        <h2 class="display-5 fw-bold mb-4">Notre mission pour l'éducation congolaise</h2>
+        <p class="lead col-lg-8 mx-auto text-muted mb-5">
+            Dans un pays où l'accès aux ressources pédagogiques de qualité reste un défi, nous croyons que chaque élève mérite les mêmes chances de réussir, 
+            qu'il soit à Kinshasa, Lubumbashi, Goma, Bukavu ou dans les territoires les plus reculés.
+        </p>
+        <div class="row g-5 justify-content-center">
+            <div class="col-lg-4">
+                <div class="text-center p-4">
+                    <div class="bg-danger text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 90px; height: 90px;">
+                        <i class="fas fa-hands-helping fa-2x"></i>
+                    </div>
+                    <h4 class="fw-bold">Égalité des chances</h4>
+                    <p class="text-muted">Rendre les outils de réussite accessibles à tous, partout en RDC.</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="text-center p-4">
+                    <div class="bg-danger text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 90px; height: 90px;">
+                        <i class="fas fa-chalkboard-teacher fa-2x"></i>
+                    </div>
+                    <h4 class="fw-bold">Contenu local</h4>
+                    <p class="text-muted">Créé et validé par des enseignants congolais pour le programme national.</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="text-center p-4">
+                    <div class="bg-danger text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 90px; height: 90px;">
+                        <i class="fas fa-heart fa-2x"></i>
+                    </div>
+                    <h4 class="fw-bold">Passion & Engagement</h4>
+                    <p class="text-muted">Une communauté qui croit en l'excellence académique de la jeunesse congolaise.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Matières couvertes -->
+<section class="py-6">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">Des ressources pour les matières décisives</h2>
+            <p class="lead text-muted">Tout ce qu'il faut pour maîtriser les sciences exactes à l'EXETAT et à l'université</p>
+        </div>
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6">
+                <div class="row g-4">
+                    <div class="col-6">
+                        <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="img-fluid rounded-4 shadow" alt="Mathématiques">
+                    </div>
+                    <div class="col-6">
+                        <img src="https://images.unsplash.com/photo-1581093450021-4a73639e9ccc?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="img-fluid rounded-4 shadow mt-5" alt="Physique">
+                    </div>
+                    <div class="col-6">
+                        <img src="https://images.unsplash.com/photo-1554475901-4538ddfbccc2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="img-fluid rounded-4 shadow" alt="Chimie">
+                    </div>
+                    <div class="col-6">
+                        <img src="https://images.unsplash.com/photo-1509228468518-180dd482180c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="img-fluid rounded-4 shadow mt-4" alt="Étude">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <h3 class="fw-bold mb-4">Mathématiques • Physique • Chimie</h3>
+                <ul class="list-unstyled fs-5">
+                    <li class="mb-3"><i class="fas fa-square-root-alt text-danger me-3"></i><strong>Analyse :</strong> Dérivation, intégration, équations différentielles</li>
+                    <li class="mb-3"><i class="fas fa-atom text-danger me-3"></i><strong>Mécanique :</strong> Lois de Newton, énergie, mouvement projectile</li>
+                    <li class="mb-3"><i class="fas fa-vial text-danger me-3"></i><strong>Chimie générale :</strong> Réactions, stœchiométrie, acido-basique</li>
+                    <li class="mb-3"><i class="fas fa-wave-square text-danger me-3"></i><strong>Ondes & Optique :</strong> Interférences, lentilles, spectre</li>
+                    <li class="mb-3"><i class="fas fa-dice text-danger me-3"></i><strong>Probabilités & Statistiques :</strong> Lois binomiales, espérance</li>
+                </ul>
+                <a href="{{ url_for('main.resumes') }}" class="btn btn-outline-danger btn-lg mt-3">Voir tous les cours →</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Témoignages (à remplir plus tard avec vrais témoignages) -->
+<section class="py-6 bg-light">
+    <div class="container">
+        <h2 class="text-center fw-bold mb-5">Ils ont réussi grâce à BibMath RDC</h2>
+        <div class="row g-5">
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4 text-center">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" class="rounded-circle mb-3" width="80" alt="Témoignage">
+                        <p class="fst-italic">"Grâce aux résumés clairs de mécanique, j'ai eu 85% en physique à l'EXETAT 2024 !"</p>
+                        <strong>Jean-Paul M., Kinshasa</strong><br>
+                        <small class="text-muted">Admis à l'UNIKIN - Polytechnique</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4 text-center">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" class="rounded-circle mb-3" width="80" alt="Témoignage">
+                        <p class="fst-italic">"Les exercices corrigés m'ont sauvée en chimie organique. Merci BibMath !"</p>
+                        <strong>Grace K., Lubumbashi</strong><br>
+                        <small class="text-muted">Étudiante en Médecine - UNILU</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4 text-center">
+                        <img src="https://randomuser.me/api/portraits/men/68.jpg" class="rounded-circle mb-3" width="80" alt="Témoignage">
+                        <p class="fst-italic">"Même avec une connexion lente à Goma, le site charge vite et m'a aidé à réussir."</p>
+                        <strong>Samuel B., Goma</strong><br>
+                        <small class="text-muted">Bachelier 2025 - Option Math-Physique</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Appel à l'action final -->
+<section class="py-6 text-white" style="background: linear-gradient(135deg, #e63946, #d62839);">
+    <div class="container text-center py-5">
+        <h2 class="display-5 fw-bold mb-4">Rejoignez la communauté des futurs ingénieurs et médecins congolais</h2>
+        <p class="lead mb-5 opacity-90">Inscrivez-vous gratuitement et commencez à réviser dès aujourd'hui.</p>
+        <div class="d-flex justify-content-center gap-4 flex-wrap">
+            <a href="{{ url_for('auth.register') }}" class="btn btn-light btn-lg px-5 py-3 rounded-pill fw-bold text-danger shadow">
+                <i class="fas fa-user-plus me-2"></i> Créer mon compte gratuit
+            </a>
+            <a href="{{ url_for('main.exercises') }}" class="btn btn-outline-light btn-lg px-5 py-3 rounded-pill fw-bold">
+                <i class="fas fa-play me-2"></i> Commencer sans inscription
+            </a>
+        </div>
+        <p class="mt-5 mb-0 small opacity-75">
+            <i class="fas fa-shield-alt me-2"></i>Aucune publicité • Données protégées • Soutenu par la communauté éducative congolaise
+        </p>
+    </div>
+</section>
+{% endblock %}

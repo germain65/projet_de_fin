@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Ajouter une Question - {{ super() }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0"><i class="fas fa-question-circle me-2"></i>Ajouter une Question à "{{ quiz.title }}"</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+                    <div class="mb-3">
+                        {{ form.question_text.label(class="form-label") }}
+                        {{ form.question_text(class="form-control", rows=3, placeholder="Écrivez la question ici") }}
+                        {% if form.question_text.errors %}
+                            <div class="text-danger">
+                                {% for error in form.question_text.errors %}
+                                    <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.options.label(class="form-label") }}
+                        {{ form.options(class="form-control", rows=4, placeholder="Option A\nOption B\nOption C\nOption D") }}
+                        <small class="form-text text-muted">Une option par ligne</small>
+                        {% if form.options.errors %}
+                            <div class="text-danger">
+                                {% for error in form.options.errors %}
+                                    <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.correct_answer.label(class="form-label") }}
+                        {{ form.correct_answer(class="form-control", placeholder="Réponse correcte") }}
+                        {% if form.correct_answer.errors %}
+                            <div class="text-danger">
+                                {% for error in form.correct_answer.errors %}
+                                    <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.explanation.label(class="form-label") }}
+                        {{ form.explanation(class="form-control", rows=2, placeholder="Explication (optionnel)") }}
+                    </div>
+                    <div class="d-grid">
+                        {{ form.submit(class="btn btn-success") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

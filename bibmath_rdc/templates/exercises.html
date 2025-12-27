@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Exercices - BibMath RDC{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold text-primary">Banque d'Exercices Organisés</h1>
+        <p class="lead text-muted">Parcourez les chapitres et entraînez-vous par thème</p>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-6 mx-auto">
+            <div class="btn-group w-100 shadow-sm" role="group">
+                <a href="{{ url_for('main.exercises') }}" class="btn btn-outline-primary {% if not selected_subject %}active{% endif %}">Tous</a>
+                <a href="{{ url_for('main.exercises', subject='maths') }}" class="btn btn-outline-primary {% if selected_subject == 'maths' %}active{% endif %}">Maths</a>
+                <a href="{{ url_for('main.exercises', subject='physique') }}" class="btn btn-outline-primary {% if selected_subject == 'physique' %}active{% endif %}">Physique</a>
+                <a href="{{ url_for('main.exercises', subject='chimie') }}" class="btn btn-outline-primary {% if selected_subject == 'chimie' %}active{% endif %}">Chimie</a>
+            </div>
+        </div>
+    </div>
+
+    {% if chapters %}
+        {% for chapter in chapters %}
+        <div class="card shadow-sm mb-4 border-0">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">{{ chapter.name}} <small class="ms-2 badge bg-light text-dark">{{ chapter.level | capitalize }}</small></h4>
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    {% for category in chapter.categories %}
+                    <div class="col-md-6 col-lg-4">
+                        <div class="border rounded-3 p-3 h-100 d-flex flex-column bg-light">
+                            <h5 class="fw-bold text-dark">{{ category.name }}</h5>
+                            <p class="small text-muted flex-grow-1">{{ category.exercises.count() }} exercices disponibles</p>
+                            <a href="{{ url_for('main.category_detail', category_id=category.id) }}" 
+                               class="btn btn-danger mt-auto rounded-pill">
+                                <i class="fas fa-arrow-right me-2"></i> Commencer
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="text-center py-5">
+            <p class="lead text-muted">Aucun chapitre disponible pour le moment.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

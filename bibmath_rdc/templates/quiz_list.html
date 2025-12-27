@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Quizzes - {{ super() }}{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center mb-4">
+                <i class="fas fa-brain text-danger me-3"></i>
+                Quizzes Interactifs
+            </h1>
+            <p class="text-center text-muted mb-5">
+                Testez vos connaissances avec nos quizzes personnalisés en mathématiques, physique et chimie.
+            </p>
+        </div>
+    </div>
+
+    <!-- Filtres -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <form method="get" class="d-flex">
+                <select name="subject" class="form-select me-2" onchange="this.form.submit()">
+                    <option value="">Tous les sujets</option>
+                    <option value="mathématiques" {% if selected_subject == 'mathématiques' %}selected{% endif %}>Mathématiques</option>
+                    <option value="physique" {% if selected_subject == 'physique' %}selected{% endif %}>Physique</option>
+                    <option value="chimie" {% if selected_subject == 'chimie' %}selected{% endif %}>Chimie</option>
+                </select>
+                <select name="level" class="form-select" onchange="this.form.submit()">
+                    <option value="">Tous les niveaux</option>
+                    <option value="debutant" {% if selected_level == 'debutant' %}selected{% endif %}>Débutant</option>
+                    <option value="intermediaire" {% if selected_level == 'intermediaire' %}selected{% endif %}>Intermédiaire</option>
+                    <option value="avance" {% if selected_level == 'avance' %}selected{% endif %}>Avancé</option>
+                </select>
+            </form>
+        </div>
+        <div class="col-md-6 text-end">
+            {% if current_user.is_authenticated %}
+            <a href="{{ url_for('main.create_quiz') }}" class="btn btn-danger">
+                <i class="fas fa-plus me-2"></i>Créer un Quiz
+            </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Liste des quizzes -->
+    <div class="row">
+        {% for quiz in quizzes %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ quiz.title }}</h5>
+                    <p class="card-text text-muted small">
+                        <i class="fas fa-book me-1"></i>{{ quiz.subject | title }}<br>
+                        <i class="fas fa-level-up-alt me-1"></i>{{ quiz.level | title }}<br>
+                        <i class="fas fa-question-circle me-1"></i>{{ quiz.questions | length }} questions
+                    </p>
+                    <div class="mt-auto">
+                        <a href="{{ url_for('main.quiz_detail', quiz_id=quiz.id) }}" class="btn btn-outline-danger btn-sm me-2">
+                            <i class="fas fa-eye me-1"></i>Voir
+                        </a>
+                        {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('main.take_quiz', quiz_id=quiz.id) }}" class="btn btn-danger btn-sm">
+                            <i class="fas fa-play me-1"></i>Faire le Quiz
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if not quizzes %}
+    <div class="text-center mt-5">
+        <i class="fas fa-search fa-3x text-muted mb-3"></i>
+        <h4 class="text-muted">Aucun quiz trouvé</h4>
+        <p class="text-muted">Essayez de modifier vos filtres ou créez votre propre quiz.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
