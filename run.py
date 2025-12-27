@@ -9,7 +9,7 @@ import sys
 # Ajouter le répertoire parent au path pour les imports
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from bibmath_rdc.app import create_app
+from project.app import create_app
 
 if __name__ == '__main__':
     # Configuration sécurisée pour la production

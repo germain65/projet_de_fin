@@ -10,7 +10,7 @@ import sys
 # Ajouter le répertoire parent au path pour les imports
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from bibmath_rdc.seed_db import seed
+from project.seed_db import seed
 
 if __name__ == '__main__':
     print("🌱 Initialisation de la base de données BibMath RDC...")
